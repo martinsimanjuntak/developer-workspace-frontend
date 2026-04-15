@@ -1,0 +1,91 @@
+<section class="snippet-list-page">
+  <header class="page-header">
+    <div>
+      <p class="page-header__eyebrow">Knowledge Library</p>
+      <h3 class="page-header__title">Snippets</h3>
+      <p class="page-header__subtitle">
+        Save reusable technical knowledge: SQL, curl, config, fixes, and setup notes.
+      </p>
+    </div>
+
+    <button class="primary-button" type="button" (click)="openCreateModal()">+ Add Snippet</button>
+  </header>
+
+  @if (actionError(); as actionErrorMessage) {
+    <div class="alert alert--error">{{ actionErrorMessage }}</div>
+  }
+
+  @if (isLoading()) {
+    <app-loading-state title="Loading snippets" message="Fetching saved snippets from the backend." />
+  } @else if (pageError(); as pageErrorMessage) {
+    <div class="state-card">
+      <p class="state-card__title">Could not load snippets</p>
+      <p class="state-card__message">{{ pageErrorMessage }}</p>
+      <button class="secondary-button" type="button" (click)="retry()">Retry</button>
+    </div>
+  } @else if (snippets().length === 0 && !activeQuery()) {
+    <app-empty-state
+      title="No snippets yet"
+      message="Create the first entry in your personal technical knowledge library."
+      actionLabel="+ Add Snippet"
+      (actionTriggered)="openCreateModal()"
+    />
+  } @else {
+    <section class="search-panel">
+      <label class="search-field">
+        <span class="search-field__label">Search Snippet</span>
+        <input
+          class="search-field__control"
+          type="text"
+          placeholder="Search SQL, curl command, config, error solution, or setup note"
+          [value]="searchInput()"
+          (input)="updateSearchInput($any($event.target).value)"
+          (keydown.enter)="search()"
+        />
+      </label>
+
+      <div class="search-actions">
+        <button class="primary-button" type="button" (click)="search()">Search</button>
+        <button class="secondary-button" type="button" (click)="resetSearch()">Reset</button>
+      </div>
+    </section>
+
+    @if (snippets().length === 0 && activeQuery()) {
+      <div class="state-card">
+        <p class="state-card__title">No snippet matches your search</p>
+        <p class="state-card__message">Try another keyword or clear the current search.</p>
+        <button class="secondary-button" type="button" (click)="resetSearch()">Clear Search</button>
+      </div>
+    } @else {
+      <app-snippet-card-list [snippets]="snippets()" (deleteRequested)="handleDelete($event)" />
+    }
+  }
+
+  @if (isCreateModalOpen()) {
+    <div class="modal-backdrop" (click)="closeCreateModal()">
+      <section class="modal-card" (click)="$event.stopPropagation()">
+        <div class="modal-card__header">
+          <div>
+            <p class="modal-card__eyebrow">Knowledge Library</p>
+            <h4 class="modal-card__title">Create Snippet</h4>
+            <p class="modal-card__subtitle">Add a reusable technical note without leaving the list page.</p>
+          </div>
+
+          <button class="modal-card__close" type="button" (click)="closeCreateModal()">x</button>
+        </div>
+
+        @if (actionError(); as modalError) {
+          <div class="alert alert--error">{{ modalError }}</div>
+        }
+
+        <app-snippet-form
+          mode="create"
+          [isSubmitting]="isCreating()"
+          [showCancel]="true"
+          (submitted)="handleCreateSnippet($event)"
+          (cancelled)="closeCreateModal()"
+        />
+      </section>
+    </div>
+  }
+</section>

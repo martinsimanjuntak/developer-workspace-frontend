@@ -1,0 +1,58 @@
+<section class="work-log-section">
+  <header class="section-header">
+    <div>
+      <p class="section-header__eyebrow">{{ eyebrow() }}</p>
+      <h4 class="section-header__title">{{ title() }}</h4>
+    </div>
+
+    @if (!isCreateFormVisible() && !editingWorkLog()) {
+      <button class="primary-button" type="button" (click)="showCreateForm()">+ Add Work Log</button>
+    }
+  </header>
+
+  @if (errorMessage(); as errorMessageValue) {
+    <div class="alert alert--error">{{ errorMessageValue }}</div>
+  }
+
+  @if (isCreateFormVisible()) {
+    <div class="panel-card">
+      <app-work-log-form
+        [mode]="'create'"
+        [isSubmitting]="isSubmitting()"
+        (submitted)="submitCreate($event)"
+      />
+    </div>
+  }
+
+  @if (editingWorkLog(); as selectedWorkLog) {
+    <div class="panel-card">
+      <app-work-log-form
+        [mode]="'edit'"
+        [initialValue]="selectedWorkLog"
+        [isSubmitting]="isSubmitting()"
+        (submitted)="submitEdit($event)"
+        (cancelled)="cancelForm()"
+      />
+    </div>
+  }
+
+  @if (isLoading()) {
+    <app-loading-state
+      title="Loading work logs"
+      message="Fetching activity entries for the selected task."
+    />
+  } @else if (workLogs().length === 0) {
+    <app-empty-state
+      title="No work logs yet"
+      message="Pick up the work by creating the first log entry for this task."
+    />
+  } @else {
+    <app-work-log-list
+      [workLogs]="workLogs()"
+      [deletingId]="deletingId()"
+      [editingId]="editingWorkLog()?.id ?? null"
+      (editRequested)="startEdit($event)"
+      (deleteRequested)="deleteWorkLog($event)"
+    />
+  }
+</section>

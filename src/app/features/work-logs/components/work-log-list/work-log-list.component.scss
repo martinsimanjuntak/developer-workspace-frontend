@@ -1,0 +1,87 @@
+.work-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.work-log-card {
+  border: 1px solid rgba(171, 188, 208, 0.48);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  padding: 18px;
+}
+
+.work-log-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.work-log-card__date,
+.work-log-card__updated,
+.work-log-card__note {
+  margin: 0;
+}
+
+.work-log-card__date {
+  color: #17304b;
+  font-weight: 700;
+}
+
+.work-log-card__updated {
+  margin-top: 4px;
+  color: #6a8198;
+  font-size: 0.84rem;
+}
+
+.work-log-card__note {
+  margin-top: 14px;
+  color: #425b76;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.work-log-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ghost-button {
+  border: 1px solid rgba(167, 186, 207, 0.85);
+  border-radius: 12px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #2d5e98;
+  cursor: pointer;
+}
+
+.ghost-button--danger {
+  color: #af4949;
+}
+
+@media (max-width: 640px) {
+  .work-log-list {
+    gap: 12px;
+  }
+
+  .work-log-card {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .work-log-card__header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .work-log-card__actions {
+    width: 100%;
+  }
+
+  .ghost-button {
+    flex: 1 1 0;
+    justify-content: center;
+  }
+}

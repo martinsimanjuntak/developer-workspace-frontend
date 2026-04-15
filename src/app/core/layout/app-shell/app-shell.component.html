@@ -1,0 +1,46 @@
+<div class="shell">
+  <aside class="shell__sidebar">
+    <div class="brand">
+      <div class="brand__icon">D</div>
+      <div>
+        <p class="brand__eyebrow">Personal App</p>
+        <h1 class="brand__title">Developer Workspace</h1>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a
+        routerLink="/tasks"
+        routerLinkActive="nav__link--active"
+        class="nav__link"
+      >
+        <span class="nav__dot"></span>
+        Tasks
+      </a>
+      <a
+        routerLink="/snippets"
+        routerLinkActive="nav__link--active"
+        class="nav__link"
+      >
+        <span class="nav__dot"></span>
+        Snippets
+      </a>
+    </nav>
+
+    <p class="sidebar__note">Tasks, work logs, and snippets now live in one workspace flow.</p>
+  </aside>
+
+  <main class="shell__content">
+    <header class="topbar">
+      <div>
+        <p class="topbar__eyebrow">Developer Workspace Frontend</p>
+        <h2 class="topbar__title">Workspace Modules</h2>
+      </div>
+      <div class="topbar__meta">Angular + Spring Boot API</div>
+    </header>
+
+    <section class="content-panel">
+      <router-outlet />
+    </section>
+  </main>
+</div>

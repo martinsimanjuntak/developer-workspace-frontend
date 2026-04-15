@@ -1,0 +1,66 @@
+.work-log-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field__label {
+  color: #4f6883;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.field__control {
+  border: 1px solid rgba(170, 188, 209, 0.8);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.field__control--textarea {
+  resize: vertical;
+}
+
+.field__error {
+  color: #a54444;
+  font-size: 0.82rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  padding: 12px 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary-button {
+  border: 0;
+  background: linear-gradient(135deg, #3e7cc8, #24599f);
+  color: #fff;
+}
+
+.secondary-button {
+  border: 1px solid rgba(158, 177, 198, 0.9);
+  background: #fff;
+  color: #27405f;
+}

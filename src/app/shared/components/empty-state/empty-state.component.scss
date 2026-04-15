@@ -1,0 +1,29 @@
+.empty-state {
+  border: 1px dashed rgba(150, 171, 195, 0.9);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.66);
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.empty-state h4 {
+  margin: 0 0 8px;
+  color: #17304b;
+  font-size: 1.2rem;
+}
+
+.empty-state p {
+  margin: 0;
+  color: #647b91;
+}
+
+.empty-state__action {
+  display: inline-flex;
+  margin-top: 18px;
+  border-radius: 14px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #3e7cc8, #24599f);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}

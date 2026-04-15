@@ -1,0 +1,35 @@
+.loading-state {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.66);
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.loading-state h4 {
+  margin: 0;
+  color: #17304b;
+  font-size: 1.15rem;
+}
+
+.loading-state p {
+  margin: 0;
+  color: #647b91;
+}
+
+.loading-state__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(60, 121, 198, 0.2);
+  border-top-color: #2f6fbc;
+  border-radius: 999px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

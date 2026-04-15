@@ -1,0 +1,29 @@
+<div class="filter-select" (click)="stop($event)">
+  <span class="filter-select__label">{{ label() }}</span>
+
+  <button
+    class="filter-select__trigger"
+    [class.filter-select__trigger--disabled]="disabled()"
+    [disabled]="disabled()"
+    type="button"
+    (click)="toggle()"
+  >
+    <span>{{ selectedLabel() }}</span>
+    <span class="filter-select__chevron" [class.filter-select__chevron--open]="isOpen()"></span>
+  </button>
+
+  @if (isOpen()) {
+    <div class="filter-select__menu">
+      @for (option of options(); track option.value) {
+        <button
+          class="filter-select__option"
+          [class.filter-select__option--selected]="option.value === value()"
+          type="button"
+          (click)="select(option.value)"
+        >
+          {{ option.label }}
+        </button>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,27 @@
+<div class="task-card-grid">
+  @for (task of tasks(); track task.id) {
+    <article class="task-card" [class]="'task-card task-card--' + task.status.toLowerCase()">
+      <a class="task-card__main" [routerLink]="['/tasks', task.id]">
+        <div class="task-card__header">
+          <div>
+            <h4 class="task-card__title">{{ task.title }}</h4>
+            <p class="task-card__description">{{ task.description }}</p>
+          </div>
+
+          <span class="task-card__badge-link">
+            <app-task-status-badge [status]="task.status" />
+          </span>
+        </div>
+
+        <p class="task-card__meta">Updated {{ task.updatedAt | date: 'mediumDate' }}</p>
+      </a>
+
+      <div class="task-card__actions">
+        <a class="action-link" [routerLink]="['/tasks', task.id, 'edit']">Edit</a>
+        <button class="action-link action-link--danger" type="button" (click)="deleteTask(task.id)">
+          Delete
+        </button>
+      </div>
+    </article>
+  }
+</div>

@@ -1,0 +1,39 @@
+.snippet-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(234, 240, 248, 0.9);
+  color: #37516d;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.snippet-badge--backend,
+.snippet-badge--tooling {
+  background: rgba(224, 236, 255, 0.92);
+  color: #275caa;
+}
+
+.snippet-badge--frontend {
+  background: rgba(232, 245, 255, 0.94);
+  color: #256f9c;
+}
+
+.snippet-badge--database {
+  background: rgba(234, 248, 238, 0.94);
+  color: #2d7a4e;
+}
+
+.snippet-badge--devops {
+  background: rgba(255, 240, 229, 0.94);
+  color: #b6682d;
+}
+
+.snippet-badge--general {
+  background: rgba(241, 243, 247, 0.96);
+  color: #5c7086;
+}

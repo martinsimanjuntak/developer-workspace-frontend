@@ -1,0 +1,35 @@
+<div class="snippet-card-grid">
+  @for (snippet of snippets(); track snippet.id) {
+    <article class="snippet-card">
+      <a class="snippet-card__main" [routerLink]="['/snippets', snippet.id]">
+        <div class="snippet-card__chrome">
+          <span class="snippet-card__chrome-dot"></span>
+          <span class="snippet-card__chrome-dot"></span>
+          <span class="snippet-card__chrome-dot"></span>
+          <span class="snippet-card__chrome-label">knowledge-entry.md</span>
+        </div>
+
+        <div class="snippet-card__header">
+          <div>
+            <h4 class="snippet-card__title">{{ snippet.title }}</h4>
+            <p class="snippet-card__preview">{{ previewContent(snippet.content) }}</p>
+          </div>
+
+          <app-snippet-category-badge [category]="snippet.category" />
+        </div>
+
+        <div class="snippet-card__meta">
+          <span>Updated {{ snippet.updatedAt | date: 'mediumDate' }}</span>
+          <span>ID #{{ snippet.id }}</span>
+        </div>
+      </a>
+
+      <div class="snippet-card__actions">
+        <a class="action-link" [routerLink]="['/snippets', snippet.id, 'edit']">Edit</a>
+        <button class="action-link action-link--danger" type="button" (click)="deleteSnippet(snippet.id)">
+          Delete
+        </button>
+      </div>
+    </article>
+  }
+</div>

@@ -1,0 +1,38 @@
+@if (isLoading()) {
+  <app-loading-state
+    title="Loading work log workspace"
+    message="Preparing the selected task context."
+  />
+} @else if (errorMessage(); as message) {
+  <section class="state-card">
+    <p class="state-card__eyebrow">Work Logs</p>
+    <h3 class="state-card__title">Could not load task</h3>
+    <p class="state-card__message">{{ message }}</p>
+    <div class="state-card__actions">
+      <button class="secondary-button" type="button" (click)="retry()">Retry</button>
+      <a class="secondary-button" routerLink="/work-logs">Back to Work Logs</a>
+    </div>
+  </section>
+} @else if (task(); as currentTask) {
+  <section class="work-log-manage-page">
+    <header class="task-hero">
+      <div>
+        <p class="task-hero__eyebrow">Work Logs Phase</p>
+        <h3 class="task-hero__title">{{ currentTask.title }}</h3>
+        <p class="task-hero__description">{{ currentTask.description }}</p>
+      </div>
+
+      <div class="task-hero__meta">
+        <app-task-status-badge [status]="currentTask.status" />
+        <p>Updated {{ currentTask.updatedAt | date: 'medium' }}</p>
+        <a class="secondary-button" [routerLink]="['/tasks', currentTask.id]">View Task Detail</a>
+      </div>
+    </header>
+
+    <app-work-log-section
+      [taskId]="currentTask.id"
+      eyebrow="Work Logs"
+      title="Manage Work Logs"
+    />
+  </section>
+}

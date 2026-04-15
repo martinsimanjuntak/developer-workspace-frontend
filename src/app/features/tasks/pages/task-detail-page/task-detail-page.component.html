@@ -1,0 +1,74 @@
+@if (isLoading()) {
+  <app-loading-state
+    title="Loading task detail"
+    message="Fetching the selected task."
+  />
+} @else if (errorMessage(); as errorMessageValue) {
+  <section class="state-card">
+    <p class="state-card__eyebrow">Task Detail</p>
+    <h3 class="state-card__title">Could not load task</h3>
+    <p class="state-card__message">{{ errorMessageValue }}</p>
+    <div class="state-card__actions">
+      <button class="secondary-button" type="button" (click)="retry()">Retry</button>
+      <a class="secondary-button" routerLink="/tasks">Back to Tasks</a>
+    </div>
+  </section>
+} @else if (task(); as currentTask) {
+  <section class="task-detail-page">
+    @if (actionError(); as actionMessage) {
+      <div class="alert alert--error">{{ actionMessage }}</div>
+    }
+
+    <header class="task-hero">
+      <div>
+        <p class="task-hero__eyebrow">Task Detail</p>
+        <h3 class="task-hero__title">{{ currentTask.title }}</h3>
+        <p class="task-hero__description">{{ currentTask.description }}</p>
+      </div>
+
+      <div class="task-hero__meta">
+        <app-task-status-badge [status]="currentTask.status" />
+        <p>Updated {{ currentTask.updatedAt | date: 'medium' }}</p>
+        <div class="task-hero__actions">
+          <a class="secondary-button" [routerLink]="['/tasks', currentTask.id, 'edit']">Edit Task</a>
+          <button class="secondary-button secondary-button--danger" type="button" [disabled]="isDeleting()" (click)="deleteTask()">
+            Delete Task
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="task-detail-grid">
+      <article class="detail-card">
+        <p class="detail-card__label">Created</p>
+        <p class="detail-card__value">{{ currentTask.createdAt | date: 'mediumDate' }}</p>
+      </article>
+
+      <article class="detail-card">
+        <p class="detail-card__label">Last Updated</p>
+        <p class="detail-card__value">{{ currentTask.updatedAt | date: 'mediumDate' }}</p>
+      </article>
+
+      <article class="detail-card">
+        <p class="detail-card__label">Status</p>
+        <div class="detail-card__status">
+          <p class="detail-card__value">{{ currentTask.status }}</p>
+          <app-filter-select
+            class="status-select"
+            label="Update Status"
+            [value]="currentTask.status"
+            [disabled]="isStatusUpdating()"
+            [options]="statusOptions"
+            (valueChanged)="updateStatus($event)"
+          />
+        </div>
+      </article>
+    </div>
+
+    <app-work-log-section
+      [taskId]="currentTask.id"
+      eyebrow="Task Progress"
+      title="Work Logs"
+    />
+  </section>
+}

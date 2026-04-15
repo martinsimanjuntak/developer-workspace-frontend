@@ -1,0 +1,29 @@
+@if (isLoading()) {
+  <app-loading-state title="Loading snippet" message="Fetching snippet data for editing." />
+} @else {
+  <section class="snippet-form-page">
+    <header class="page-header">
+      <div>
+        <p class="page-header__eyebrow">Snippet Module</p>
+        <h3 class="page-header__title">Edit Snippet</h3>
+        <p class="page-header__subtitle">Update the selected snippet.</p>
+      </div>
+      <a class="secondary-button" [routerLink]="snippet() ? ['/snippets', snippet()!.id] : ['/snippets']">Back</a>
+    </header>
+
+    @if (errorMessage(); as message) {
+      <div class="alert alert--error">{{ message }}</div>
+    }
+
+    @if (snippet(); as currentSnippet) {
+      <div class="form-card">
+        <app-snippet-form
+          [mode]="'edit'"
+          [initialValue]="currentSnippet"
+          [isSubmitting]="isSubmitting()"
+          (submitted)="handleSubmit($event)"
+        />
+      </div>
+    }
+  </section>
+}

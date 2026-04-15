@@ -1,0 +1,30 @@
+<form class="task-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label class="field">
+    <span class="field__label">Title</span>
+    <input class="field__control" type="text" formControlName="title" />
+    @if (form.controls.title.invalid && form.controls.title.touched) {
+      <span class="field__error">Title is required and must be 150 characters or fewer.</span>
+    }
+  </label>
+
+  <label class="field">
+    <span class="field__label">Description</span>
+    <textarea
+      class="field__control field__control--textarea"
+      rows="8"
+      formControlName="description"
+    ></textarea>
+    @if (form.controls.description.invalid && form.controls.description.touched) {
+      <span class="field__error">Description is required and must be 2000 characters or fewer.</span>
+    }
+  </label>
+
+  <div class="form-actions">
+    <button class="primary-button" type="submit" [disabled]="isSubmitting()">
+      {{ mode() === 'edit' ? 'Save Task' : 'Create Task' }}
+    </button>
+    @if (showCancel()) {
+      <button class="secondary-button" type="button" (click)="onCancel()">Cancel</button>
+    }
+  </div>
+</form>

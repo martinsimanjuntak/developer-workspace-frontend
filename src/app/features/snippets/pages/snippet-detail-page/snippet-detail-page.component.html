@@ -1,0 +1,67 @@
+@if (isLoading()) {
+  <app-loading-state title="Loading snippet detail" message="Fetching the selected snippet." />
+} @else if (errorMessage(); as errorMessageValue) {
+  <section class="state-card">
+    <p class="state-card__eyebrow">Snippet Detail</p>
+    <h3 class="state-card__title">Could not load snippet</h3>
+    <p class="state-card__message">{{ errorMessageValue }}</p>
+    <div class="state-card__actions">
+      <button class="secondary-button" type="button" (click)="retry()">Retry</button>
+      <a class="secondary-button" routerLink="/snippets">Back to Snippets</a>
+    </div>
+  </section>
+} @else if (snippet(); as currentSnippet) {
+  <section class="snippet-detail-page">
+    @if (actionError(); as actionMessage) {
+      <div class="alert alert--error">{{ actionMessage }}</div>
+    }
+
+    <header class="snippet-hero">
+      <div>
+        <p class="snippet-hero__eyebrow">Knowledge Entry</p>
+        <h3 class="snippet-hero__title">{{ currentSnippet.title }}</h3>
+        <p class="snippet-hero__description">Reusable technical reference for your personal workspace.</p>
+      </div>
+
+      <div class="snippet-hero__meta">
+        <app-snippet-category-badge [category]="currentSnippet.category" />
+        <p>Updated {{ currentSnippet.updatedAt | date: 'medium' }}</p>
+        <div class="snippet-hero__actions">
+          <a class="secondary-button" [routerLink]="['/snippets', currentSnippet.id, 'edit']">Edit Snippet</a>
+          <button class="secondary-button secondary-button--danger" type="button" [disabled]="isDeleting()" (click)="deleteSnippet()">
+            Delete Snippet
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="snippet-detail-grid">
+      <article class="detail-card">
+        <p class="detail-card__label">Created</p>
+        <p class="detail-card__value">{{ currentSnippet.createdAt | date: 'mediumDate' }}</p>
+      </article>
+
+      <article class="detail-card">
+        <p class="detail-card__label">Last Updated</p>
+        <p class="detail-card__value">{{ currentSnippet.updatedAt | date: 'mediumDate' }}</p>
+      </article>
+
+      <article class="detail-card">
+        <p class="detail-card__label">Category</p>
+        <div class="detail-card__value detail-card__value--badge">
+          <app-snippet-category-badge [category]="currentSnippet.category" />
+        </div>
+      </article>
+    </div>
+
+    <article class="content-card">
+      <div class="content-card__chrome">
+        <span></span>
+        <span></span>
+        <span></span>
+        <p class="content-card__label">reference-note.md</p>
+      </div>
+      <div class="content-card__body" [innerHTML]="currentSnippet.content"></div>
+    </article>
+  </section>
+}

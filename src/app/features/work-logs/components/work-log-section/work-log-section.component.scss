@@ -1,0 +1,69 @@
+.work-log-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.section-header__eyebrow {
+  margin: 0;
+  color: #617991;
+  font-size: 0.84rem;
+}
+
+.section-header__title {
+  margin: 4px 0 0;
+  color: #17304b;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.panel-card,
+.alert {
+  border: 1px solid rgba(171, 188, 208, 0.45);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 18px;
+}
+
+.alert--error {
+  border-color: rgba(214, 151, 151, 0.7);
+  background: rgba(255, 243, 243, 0.92);
+  color: #9b4545;
+}
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #3e7cc8, #24599f);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .panel-card,
+  .alert {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .primary-button {
+    width: 100%;
+  }
+}

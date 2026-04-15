@@ -1,0 +1,10 @@
+.angular
+.git
+.gitignore
+.idea
+dist
+node_modules
+npm-debug.log
+coverage
+*.local
+*.iml

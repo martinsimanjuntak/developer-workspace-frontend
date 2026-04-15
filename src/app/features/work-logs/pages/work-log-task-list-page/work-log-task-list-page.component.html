@@ -1,0 +1,50 @@
+<section class="work-log-task-list-page">
+  <header class="page-header">
+    <div>
+      <p class="page-header__eyebrow">Frontend Phase 2</p>
+      <h3 class="page-header__title">Work Logs</h3>
+      <p class="page-header__subtitle">
+        Pick a task first, then manage its work logs in a dedicated module.
+      </p>
+    </div>
+  </header>
+
+  @if (isLoading()) {
+    <app-loading-state
+      title="Loading tasks"
+      message="Fetching tasks so you can choose where to manage work logs."
+    />
+  } @else if (errorMessage(); as message) {
+    <div class="state-card">
+      <p class="state-card__title">Could not load tasks</p>
+      <p class="state-card__message">{{ message }}</p>
+      <button class="secondary-button" type="button" (click)="retry()">Retry</button>
+    </div>
+  } @else if (tasks().length === 0) {
+    <app-empty-state
+      title="No tasks available"
+      message="Create a task first before managing its work logs."
+      actionLabel="Go to Tasks"
+      actionLink="/tasks"
+    />
+  } @else {
+    <div class="task-grid">
+      @for (task of tasks(); track task.id) {
+        <article class="task-card">
+          <div class="task-card__header">
+            <div>
+              <h4 class="task-card__title">{{ task.title }}</h4>
+              <p class="task-card__description">{{ task.description }}</p>
+            </div>
+            <app-task-status-badge [status]="task.status" />
+          </div>
+
+          <div class="task-card__footer">
+            <p class="task-card__meta">Updated {{ task.updatedAt | date: 'mediumDate' }}</p>
+            <a class="primary-button" [routerLink]="['/work-logs/task', task.id]">Manage Work Logs</a>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

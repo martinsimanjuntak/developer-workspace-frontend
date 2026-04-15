@@ -1,0 +1,32 @@
+<form class="work-log-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-grid">
+    <div class="field">
+      <app-filter-date
+        label="Log Date"
+        placeholder="Select log date"
+        [value]="form.controls.logDate.getRawValue()"
+        (valueChanged)="updateLogDate($event)"
+      />
+      @if (form.controls.logDate.invalid && form.controls.logDate.touched) {
+        <span class="field__error">Log date is required.</span>
+      }
+    </div>
+
+    <label class="field field--full">
+      <span class="field__label">Note</span>
+      <textarea class="field__control field__control--textarea" rows="5" formControlName="note"></textarea>
+      @if (form.controls.note.invalid && form.controls.note.touched) {
+        <span class="field__error">Note is required.</span>
+      }
+    </label>
+  </div>
+
+  <div class="form-actions">
+    <button class="primary-button" type="submit" [disabled]="isSubmitting()">
+      {{ mode() === 'edit' ? 'Save Changes' : 'Add Work Log' }}
+    </button>
+    @if (mode() === 'edit') {
+      <button class="secondary-button" type="button" (click)="onCancel()">Cancel</button>
+    }
+  </div>
+</form>

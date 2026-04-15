@@ -1,0 +1,23 @@
+<div class="work-log-list">
+  @for (workLog of workLogs(); track workLog.id) {
+    <article class="work-log-card">
+      <div class="work-log-card__header">
+        <div>
+          <p class="work-log-card__date">{{ workLog.logDate | date: 'mediumDate' }}</p>
+          <p class="work-log-card__updated">Updated {{ workLog.updatedAt | date: 'medium' }}</p>
+        </div>
+
+        <div class="work-log-card__actions">
+          <button class="ghost-button" type="button" (click)="edit(workLog)" [disabled]="editingId() === workLog.id">
+            Edit
+          </button>
+          <button class="ghost-button ghost-button--danger" type="button" (click)="remove(workLog)" [disabled]="deletingId() === workLog.id">
+            Delete
+          </button>
+        </div>
+      </div>
+
+      <p class="work-log-card__note">{{ workLog.note }}</p>
+    </article>
+  }
+</div>

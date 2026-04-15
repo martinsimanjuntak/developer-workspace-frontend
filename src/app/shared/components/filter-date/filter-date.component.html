@@ -1,0 +1,79 @@
+<div class="filter-date" (click)="stop($event)">
+  <span class="filter-date__label">{{ label() }}</span>
+
+  <div class="filter-date__control-wrap">
+    <button
+      class="filter-date__trigger"
+      [class.filter-date__trigger--active]="value()"
+      type="button"
+      (click)="toggle()"
+    >
+      <span class="filter-date__leading-icon">
+        <span class="filter-date__leading-icon-core"></span>
+      </span>
+
+      <span class="filter-date__content">
+        <span class="filter-date__eyebrow">Pick a date</span>
+        <span
+          class="filter-date__value"
+          [class.filter-date__value--placeholder]="!value()"
+        >
+          {{ displayValue() }}
+        </span>
+      </span>
+
+      <span class="filter-date__calendar-icon"></span>
+    </button>
+
+    @if (value()) {
+      <button class="filter-date__clear" type="button" (click)="clear($event)">
+        x
+      </button>
+    }
+
+    @if (isOpen()) {
+      <div class="filter-date__popover">
+        <div class="filter-date__popover-header">
+          <button class="filter-date__month-button" type="button">
+            {{ monthLabel() }}
+          </button>
+
+          <div class="filter-date__nav">
+            <button class="filter-date__nav-button" type="button" (click)="previousMonth()">
+              <span class="filter-date__nav-arrow filter-date__nav-arrow--left"></span>
+            </button>
+            <button class="filter-date__nav-button" type="button" (click)="nextMonth()">
+              <span class="filter-date__nav-arrow filter-date__nav-arrow--right"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="filter-date__weekdays">
+          @for (weekday of weekdays; track weekday + $index) {
+            <span>{{ weekday }}</span>
+          }
+        </div>
+
+        <div class="filter-date__grid">
+          @for (day of calendarDays(); track day.iso) {
+            <button
+              class="filter-date__day"
+              [class.filter-date__day--outside]="!day.isCurrentMonth"
+              [class.filter-date__day--selected]="day.isSelected"
+              [class.filter-date__day--today]="day.isToday && !day.isSelected"
+              type="button"
+              (click)="selectDate(day.iso)"
+            >
+              {{ day.dayNumber }}
+            </button>
+          }
+        </div>
+
+        <div class="filter-date__popover-footer">
+          <button class="filter-date__footer-link" type="button" (click)="clear($event)">Clear</button>
+          <button class="filter-date__footer-link" type="button" (click)="jumpToToday()">Today</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
